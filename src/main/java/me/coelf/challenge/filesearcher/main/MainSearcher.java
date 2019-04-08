@@ -30,7 +30,7 @@ public class MainSearcher
         try
         {
             Scanner keyboard = new Scanner(System.in);
-            fileSearcher.read(args[0]);
+            System.out.println(fileSearcher.read(args[0]));
             while (true)
             {
                 try
