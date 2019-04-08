@@ -8,3 +8,4 @@ build
 #ignore idea
 *.iml
 .idea
+out
