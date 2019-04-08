@@ -1,6 +1,5 @@
 package me.coelf.challenge.filesearcher.adapters;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +46,7 @@ public class WordRanker implements Ranker
 
         Set<String> textWords = Stream.of(text.split(" ")).collect(Collectors.toSet());
         long count = textWords.stream()
-                .filter(w -> file.getContent().contains(w))
+                .filter(word -> file.getContent().toLowerCase().contains(word))
                 .count();
 
         return new RankedFile(file, calculateRank(count, textWords));

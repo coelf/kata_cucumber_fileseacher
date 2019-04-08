@@ -1,4 +1,4 @@
-package me.coelf.challenge.filesearcher;
+package me.coelf.challenge.filesearcher.acceptance;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertNotNull;
@@ -17,7 +17,6 @@ import me.coelf.challenge.filesearcher.adapters.InMemoryFilesIndex;
 import me.coelf.challenge.filesearcher.adapters.InMemoryFilesRepository;
 import me.coelf.challenge.filesearcher.adapters.WordRanker;
 import me.coelf.challenge.filesearcher.domain.File;
-import me.coelf.challenge.filesearcher.domain.FilesRepository;
 import me.coelf.challenge.filesearcher.domain.RankedFile;
 import me.coelf.challenge.filesearcher.usecase.ExitException;
 import me.coelf.challenge.filesearcher.usecase.FileSearcher;
@@ -29,7 +28,6 @@ public class SearcherStepdefs implements En
     private String           readPrint;
     private List<RankedFile> filesMatch;
     private List<File>       files;
-    private FilesRepository  filesRepository;
     private FileSearcher     fileSearcher;
 
     public SearcherStepdefs()
@@ -43,9 +41,9 @@ public class SearcherStepdefs implements En
             assertThat(files.size(), equalTo(14));
         });
         Given("^directory \"([^\"]*)\" accessible$", (String directoryName) -> {
-            filesRepository = new InMemoryFilesRepository(directoryName, files);
-            fileSearcher = new FileSearcher(filesRepository, new InMemoryFilesIndex(), new WordRanker());
-            assertNotNull(files);
+            fileSearcher = new FileSearcher(new InMemoryFilesRepository(directoryName, files),
+                    new InMemoryFilesIndex(),
+                    new WordRanker());
             assertNotNull(fileSearcher);
 
         });

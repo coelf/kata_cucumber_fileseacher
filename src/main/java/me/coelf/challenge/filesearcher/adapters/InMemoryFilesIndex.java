@@ -1,9 +1,7 @@
 package me.coelf.challenge.filesearcher.adapters;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +22,7 @@ public class InMemoryFilesIndex implements FilesIndex
     @Override
     public void add(List<File> files)
     {
-        files.forEach(this::addWordsToIndex);
+        files.forEach(this::addFileToIndex);
     }
 
     @Override
@@ -43,7 +41,7 @@ public class InMemoryFilesIndex implements FilesIndex
     private Set<File> findWordsInIndex(Set<String> wordsSearch)
     {
         Set<File> allMatchingFiles = new HashSet<>();
-        wordsSearch.forEach(word -> findMatchingWordFiles(allMatchingFiles, word));
+        wordsSearch.forEach(word -> findMatchingWordFiles(allMatchingFiles, word.trim()));
         return allMatchingFiles;
     }
 
@@ -70,29 +68,36 @@ public class InMemoryFilesIndex implements FilesIndex
                 .collect(Collectors.toSet());
     }
 
-    private void addWordsToIndex(File file)
+    private void addFileToIndex(File file)
     {
         Set<String> words = computeUniqueWordsFromSentence(file.getContent());
-        words.forEach(word -> addWordAndFile(word, file));
+        words.forEach(word -> linkWordToFiles(word, file));
     }
 
-    private void addWordAndFile(
+    private void linkWordToFiles(
             String word,
             File file
     )
     {
-
         if (wordIndex.containsKey(word))
         {
             List<File> files = wordIndex.get(word);
-            files.add(file);
-            wordIndex.put(word, files);
+            addToIndex(word, file, files);
         }
         else
         {
             List<File> files = new ArrayList<>();
-            files.add(file);
-            wordIndex.put(word, files);
+            addToIndex(word, file, files);
         }
+    }
+
+    private void addToIndex(
+            String word,
+            File currentFile,
+            List<File> files
+    )
+    {
+        files.add(currentFile);
+        wordIndex.put(word.trim(), files);
     }
 }

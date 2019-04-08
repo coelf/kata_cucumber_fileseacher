@@ -1,6 +1,6 @@
-Feature: Read files
+Feature: File searcher
 
-  As a user, I want to see the number of file of the directory
+  As a user, I want to see the number of file of the directory and search words in the files
 
   Background:
     Given Files in directory "/foo/bar" exist

@@ -14,6 +14,8 @@ public class Prettier
 
     public static String print(List<RankedFile> rankedFiles)
     {
-        return rankedFiles.stream().map(RankedFile::toString).collect(Collectors.joining("\n"));
+        return rankedFiles.stream()
+                .map(RankedFile::toString)
+                .collect(Collectors.joining("\n"));
     }
 }

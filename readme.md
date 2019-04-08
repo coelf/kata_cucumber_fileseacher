@@ -1,4 +1,4 @@
-# FileSearcher, Java coding exercice
+# FileSearcher
 
 This should read all the text files in the given directory, building an in memory representation of the
 files and their contents, and then give a command prompt at which interactive searches can be
@@ -20,7 +20,8 @@ performed.
 ## assumptions and limitations
 
 - it's index only words, so misspelling are not handle 
-- the order of words and the case are only take on account for a 100% match else it's result to a maximun match up to 90% with the WorkRanker implementation
+- the order of words and the case are only take on account for a 100% match else it's result to a maximum match up to
+ 90% with the WorkRanker implementation
 
 ## More info
 
